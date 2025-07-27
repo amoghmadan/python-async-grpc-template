@@ -1,0 +1,10 @@
+services:
+  application:
+    build: .
+    command: python -m app.grpc
+    container_name: "Application"
+    image: app:${TAG:-local}
+    ports:
+      - "50051:50051"
+    volumes:
+      - ./logs:/home/app/app/logs

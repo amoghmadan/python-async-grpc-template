@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package healthcheck;
+
+message PingRequest {}
+
+message PingResponse {
+  string reply = 1;
+}
+
+service HealthCheckService {
+  rpc Ping(PingRequest) returns (PingResponse);
+}
