@@ -1,20 +1,29 @@
 #!/bin/bash
 
-set -e
+PROTO_PATH="proto"
+GENERATION_PATH="src"
 
-# Absolute or relative path to your proto files (inside your package)
-PROTO_DIR="proto/app"
-GENERATION_DIR="gen/app/python"
-mkdir -p "$GENERATION_DIR"
+echo "🔄 Compiling 'proto/app/**/*.proto' to '$GENERATION_PATH'..."
 
-echo "📦 Generating Python gRPC files from .proto files in $PROTO_DIR..."
+python -m grpc_tools.protoc \
+  -I"$PROTO_PATH" \
+  --python_out="$GENERATION_PATH" \
+  --grpc_python_out="$GENERATION_PATH" \
+  proto/app/**/*.proto
 
-# Compile all .proto files in the directory
-for proto_file in "$PROTO_DIR"/*.proto; do
-    echo "🔄 Compiling $proto_file..."
-    python -m grpc_tools.protoc \
-        -I"$PROTO_DIR" \
-        --python_out="$GENERATION_DIR" \
-        --grpc_python_out="$GENERATION_DIR" \
-        "$proto_file"
+echo "✅ Done! Generated stubs in '$GENERATION_PATH'"
+
+echo "🔄 Adding __init__.py files to subpackages..."
+
+OUT_DIR="src/app/protobuf"
+
+# Add __init__.py to every folder in OUT_DIR
+find $OUT_DIR -type d | while read -r dir; do
+  init_file="$dir/__init__.py"
+  if [ ! -f "$init_file" ]; then
+    echo "# Auto-generated to make this a Python package" > "$init_file"
+    echo "Created $init_file"
+  fi
 done
+
+echo "✅ Done!"

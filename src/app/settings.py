@@ -1,8 +1,4 @@
-import sys
 from pathlib import Path
-
-# Add the generated wallet directory to the Python path
-sys.path.append("gen/app/python")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).parent.parent

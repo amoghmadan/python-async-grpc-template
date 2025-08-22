@@ -1,10 +1,7 @@
-import importlib
-
 from grpc.aio import Server
 
+from app.protobuf.healthcheck import healthcheck_pb2_grpc
 from app.services import HealthCheckService
-
-healthcheck_pb2_grpc = importlib.import_module("healthcheck_pb2_grpc")
 
 
 def register_services(server: Server) -> Server:
