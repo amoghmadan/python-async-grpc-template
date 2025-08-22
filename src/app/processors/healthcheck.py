@@ -3,7 +3,11 @@ from app.repositories import HealthCheckRepository
 
 class HealthCheckProcessor:
     def __init__(self):
-        self.repo = HealthCheckRepository()
+        self.repository = HealthCheckRepository()
 
     async def check(self) -> str:
-        return await self.repo.get_healthcheck_text()
+        """
+        Check the health via DB.
+        :return: str
+        """
+        return await self.repository.get_healthcheck_text()

@@ -11,5 +11,5 @@ class HealthCheckService(healthcheck_pb2_grpc.HealthCheckServiceServicer):
 
     async def Ping(self, request, context):
         """Ping SQL"""
-        reply: str = await self.processor.check()
+        reply: str = await self.processor.check()  # type: ignore[annotation-unchecked]
         return healthcheck_pb2.PingResponse(reply=reply)
