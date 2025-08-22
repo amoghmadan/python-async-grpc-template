@@ -1,5 +1,5 @@
-# Use Python 3.13 Slim Bookworm as base image
-FROM python:3.13-slim-bookworm
+# Use Python 3.13 Slim Trixie as base image
+FROM python:3.13-slim-trixie
 
 # Set username, home path and venv path
 ARG USERNAME=app
@@ -27,3 +27,4 @@ ENV PATH="$VENV_PATH/bin:$PATH"
 # Copy the application code and install dependencies
 COPY --chown=$USERNAME:$USERNAME . .
 RUN pip install -e '.[sqlite]'
+RUN sh scripts/build_proto.sh

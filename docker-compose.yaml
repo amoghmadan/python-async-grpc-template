@@ -1,7 +1,7 @@
 services:
   application:
     build: .
-    command: python -m app.grpc
+    command: python -m app
     container_name: "Application"
     image: app:${TAG:-local}
     ports:
