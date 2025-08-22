@@ -10,9 +10,9 @@ from app.registry import register_services
 
 class GRPCHandler:
 
-    def __init__(self):
-        self.host = "::"
-        self.port = 50051
+    def __init__(self, host: str = "::", port: int = 50051):
+        self.host = host
+        self.port = port
 
     def handle(self):
         async def _main() -> None:
