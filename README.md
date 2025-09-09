@@ -27,7 +27,7 @@ gRPC App
 
 - Run the development server.
   ```bash
-  python -m app.grpc
+  python -m app
   ```
 
 ## Migrations
