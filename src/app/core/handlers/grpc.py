@@ -5,7 +5,7 @@ from concurrent import futures
 from grpc.aio import Server, server
 
 from app.interceptors import interceptors
-from app.registry import register_services
+from app.registry import register
 
 
 class GRPCHandler:
@@ -20,7 +20,8 @@ class GRPCHandler:
                 futures.ThreadPoolExecutor(max_workers=10), interceptors=interceptors
             )
             application.add_insecure_port(f"[{self.host}]:{self.port}")
-            application = register_services(application)
+            for service, servicer in register.items():
+                servicer(service(), application)
             try:
                 await application.start()
                 sys.stdout.write(
